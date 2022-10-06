@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MicArray name="spiral_25cm_m36_15_d30_4_9">
+   <pos Name="Point 1" x="0.15" y="0" z="0"/>
+   <pos Name="Point 2" x="0.184" y="0.0445" z="0"/>
+   <pos Name="Point 3" x="0.204" y="0.0865" z="0"/>
+   <pos Name="Point 4" x="0.2165" y="0.125" z="0"/>
+   <pos Name="Point 5" x="0.115" y="0.0965" z="0"/>
+   <pos Name="Point 6" x="0.112" y="0.1525" z="0"/>
+   <pos Name="Point 7" x="0.101" y="0.1975" z="0"/>
+   <pos Name="Point 8" x="0.0855" y="0.235" z="0"/>
+   <pos Name="Point 9" x="0.026" y="0.1475" z="0"/>
+   <pos Name="Point 10" x="-0.012" y="0.189" z="0"/>
+   <pos Name="Point 11" x="-0.0495" y="0.216" z="0"/>
+   <pos Name="Point 12" x="-0.0855" y="0.235" z="0"/>
+   <pos Name="Point 13" x="-0.075" y="0.13" z="0"/>
+   <pos Name="Point 14" x="-0.1305" y="0.137" z="0"/>
+   <pos Name="Point 15" x="-0.177" y="0.1335" z="0"/>
+   <pos Name="Point 16" x="-0.2165" y="0.125" z="0"/>
+   <pos Name="Point 17" x="-0.141" y="0.0515" z="0"/>
+   <pos Name="Point 18" x="-0.188" y="0.021" z="0"/>
+   <pos Name="Point 19" x="-0.2215" y="-0.0115" z="0"/>
+   <pos Name="Point 20" x="-0.246" y="-0.0435" z="0"/>
+   <pos Name="Point 21" x="-0.141" y="-0.0515" z="0"/>
+   <pos Name="Point 22" x="-0.1575" y="-0.105" z="0"/>
+   <pos Name="Point 23" x="-0.1625" y="-0.151" z="0"/>
+   <pos Name="Point 24" x="-0.1605" y="-0.1915" z="0"/>
+   <pos Name="Point 25" x="-0.075" y="-0.13" z="0"/>
+   <pos Name="Point 26" x="-0.053" y="-0.1815" z="0"/>
+   <pos Name="Point 27" x="-0.027" y="-0.22" z="0"/>
+   <pos Name="Point 28" x="0" y="-0.25" z="0"/>
+   <pos Name="Point 29" x="0.026" y="-0.1475" z="0"/>
+   <pos Name="Point 30" x="0.076" y="-0.1735" z="0"/>
+   <pos Name="Point 31" x="0.1205" y="-0.186" z="0"/>
+   <pos Name="Point 32" x="0.1605" y="-0.1915" z="0"/>
+   <pos Name="Point 33" x="0.115" y="-0.0965" z="0"/>
+   <pos Name="Point 34" x="0.1695" y="-0.084" z="0"/>
+   <pos Name="Point 35" x="0.212" y="-0.065" z="0"/>
+   <pos Name="Point 36" x="0.246" y="-0.0435" z="0"/>
+</MicArray>

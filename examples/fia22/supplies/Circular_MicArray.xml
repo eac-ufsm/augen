@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MicArray name="circular_25cm_m36">
+   <pos Name="Point 1" x="0.25" y="0" z="0"/>
+   <pos Name="Point 2" x="0.2462" y="0.043412" z="0"/>
+   <pos Name="Point 3" x="0.23492" y="0.085505" z="0"/>
+   <pos Name="Point 4" x="0.21651" y="0.125" z="0"/>
+   <pos Name="Point 5" x="0.19151" y="0.1607" z="0"/>
+   <pos Name="Point 6" x="0.1607" y="0.19151" z="0"/>
+   <pos Name="Point 7" x="0.125" y="0.21651" z="0"/>
+   <pos Name="Point 8" x="0.085505" y="0.23492" z="0"/>
+   <pos Name="Point 9" x="0.043412" y="0.2462" z="0"/>
+   <pos Name="Point 10" x="0" y="0.25" z="0"/>
+   <pos Name="Point 11" x="-0.043412" y="0.2462" z="0"/>
+   <pos Name="Point 12" x="-0.085505" y="0.23492" z="0"/>
+   <pos Name="Point 13" x="-0.125" y="0.21651" z="0"/>
+   <pos Name="Point 14" x="-0.1607" y="0.19151" z="0"/>
+   <pos Name="Point 15" x="-0.19151" y="0.1607" z="0"/>
+   <pos Name="Point 16" x="-0.21651" y="0.125" z="0"/>
+   <pos Name="Point 17" x="-0.23492" y="0.085505" z="0"/>
+   <pos Name="Point 18" x="-0.2462" y="0.043412" z="0"/>
+   <pos Name="Point 19" x="-0.25" y="0" z="0"/>
+   <pos Name="Point 20" x="-0.2462" y="-0.043412" z="0"/>
+   <pos Name="Point 21" x="-0.23492" y="-0.085505" z="0"/>
+   <pos Name="Point 22" x="-0.21651" y="-0.125" z="0"/>
+   <pos Name="Point 23" x="-0.19151" y="-0.1607" z="0"/>
+   <pos Name="Point 24" x="-0.1607" y="-0.19151" z="0"/>
+   <pos Name="Point 25" x="-0.125" y="-0.21651" z="0"/>
+   <pos Name="Point 26" x="-0.085505" y="-0.23492" z="0"/>
+   <pos Name="Point 27" x="-0.043412" y="-0.2462" z="0"/>
+   <pos Name="Point 28" x="0" y="-0.25" z="0"/>
+   <pos Name="Point 29" x="0.043412" y="-0.2462" z="0"/>
+   <pos Name="Point 30" x="0.085505" y="-0.23492" z="0"/>
+   <pos Name="Point 31" x="0.125" y="-0.21651" z="0"/>
+   <pos Name="Point 32" x="0.1607" y="-0.19151" z="0"/>
+   <pos Name="Point 33" x="0.19151" y="-0.1607" z="0"/>
+   <pos Name="Point 34" x="0.21651" y="-0.125" z="0"/>
+   <pos Name="Point 35" x="0.23492" y="-0.085505" z="0"/>
+   <pos Name="Point 36" x="0.2462" y="-0.043412" z="0"/>
+</MicArray>
