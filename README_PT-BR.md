@@ -19,7 +19,7 @@
 
 *This is the Brazilian Portuguese version of this documentation file. For the English version of this text [click here](README.md).*
 
-# Augen (versão: 0.1.0)
+# Augen (versão: 0.1.1)
 
 Augen é uma *toolbox* (conjunto de ferramentas) projetada para criar uma integração direta entre as *toolboxes* [Acoular](https://github.com/acoular/acoular) [[1]](#1) e [Amiet Tools](https://github.com/fchirono/amiet_tools) [[2]](#2). A ferramenta fornece ainda algumas funções escritas em Matlab para fornecer suporte à *toolboxes* como [ITA-Toolbox](https://git.rwth-aachen.de/ita/toolbox) [[3]](#3) e [Beamap](https://github.com/eac-ufsm/beamap) [[4]](#4).
 

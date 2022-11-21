@@ -9,10 +9,19 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Tuple
 
-import amiet_tools as AmT
-import h5py
-import numpy as np
 from acoular import RectGrid
+from amiet_tools import (
+    AirfoilGeom,
+    FrequencyVars,
+    Phi_2D,
+    ShearLayer_matrix,
+    TestSetup,
+    calc_airfoil_Sqq,
+    dipole_shear,
+    ky_vector,
+    rect_grid,
+)
+from h5py import File
 from numpy import (
     array,
     complex64,
@@ -45,8 +54,8 @@ class AmietFrequencyData:
     """
 
     frequency: float
-    steering_vector: np.ndarray
-    csm: np.ndarray
+    steering_vector: ndarray
+    csm: ndarray
 
     def __repr__(self) -> str:
         return f"AmietFrequencyData for {self.frequency} Hz."
@@ -81,7 +90,7 @@ class AmietDataReader:
         Returns:
             frequencies: List of frequencies inside the group.
         """
-        file_instance = h5py.File(self.file_name, "r")
+        file_instance = File(self.file_name, "r")
         fq = file_instance.get("Frequency data")
         frequencies = fq.get("frequencies")[()]
         file_instance.close()
@@ -98,7 +107,7 @@ class AmietDataReader:
             AmietFrequencyData: Object instance with the data of the frequency.
         """
         f_pos = index_of_value(self.frequencies, frequency)
-        hdf = h5py.File(self.file_name, "r")
+        hdf = File(self.file_name, "r")
         fq = hdf.get("Frequency data")
         freq_x = fq.get(f"freq_{f_pos}")
         freq = float(freq_x.get("frequency")[()])
@@ -112,7 +121,7 @@ class AmietDataReader:
 
         return AmietFrequencyData(freq, steering_vector, csm)
 
-    def get_mic_array(self) -> Tuple[str, np.ndarray, int]:
+    def get_mic_array(self) -> Tuple[str, ndarray, int]:
         """Extract the related informations of the microphe array used in the
             data generation.
 
@@ -120,7 +129,7 @@ class AmietDataReader:
             Tuple[str, np.ndarray, int]: name of the xml file, microphone array
                 matrix and number of microphones.
         """
-        hdf = h5py.File(self.file_name, "r")
+        hdf = File(self.file_name, "r")
         ma = hdf.get("Microphone array")  # ma -> Microphone array
         file_name = ma.get(f"file_name")[()]
         mic_array = ma.get(f"mic_array")[()]
@@ -135,7 +144,7 @@ class AmietDataReader:
         Returns:
             RectGrid: RectGrid object.
         """
-        hdf = h5py.File(self.file_name, "r")
+        hdf = File(self.file_name, "r")
         gi = hdf.get("Grid info")  # gi -> Grid info
         return RectGrid(
             x_min=gi.get("x_min")[()],
@@ -146,30 +155,30 @@ class AmietDataReader:
             increment=gi.get("increment")[()],
         )
 
-    def get_airfoil(self) -> AmT.AirfoilGeom:
+    def get_airfoil(self) -> AirfoilGeom:
         """Extract the airfoil geometry used in the data generation and returns
-            an AmT.AirfoilGeom instance.
+            an AirfoilGeom instance.
 
         Returns:
-            AmT.AirfoilGeom : AirfoilGeom object.
+            AirfoilGeom : AirfoilGeom object.
         """
-        hdf = h5py.File(self.file_name, "r")
+        hdf = File(self.file_name, "r")
         ag = hdf.get("AirfoilGeom")  # ag -> AirfoilGeom
         b = ag.get(f"b")[()]
         d = ag.get(f"d")[()]
         Nx = ag.get(f"Nx")[()]
         Ny = ag.get(f"Ny")[()]
         hdf.close()
-        return AmT.AirfoilGeom(b, d, Nx, Ny)
+        return AirfoilGeom(b, d, Nx, Ny)
 
-    def get_setup(self) -> AmT.TestSetup:
+    def get_setup(self) -> TestSetup:
         """Extract the test setup used in the main data generation and returns
-            an AmT.TestSetup instance.
+            an TestSetup instance.
 
         Returns:
-            AmT.TestSetup: TestSetup object.
+            TestSetup: TestSetup object.
         """
-        hdf = h5py.File(self.file_name, "r")
+        hdf = File(self.file_name, "r")
         ts = hdf.get("TestSetup")  # ts -> TestSetup
         c0 = ts.get(f"c0")[()]
         rho0 = ts.get(f"rho0")[()]
@@ -179,7 +188,7 @@ class AmietDataReader:
         length_scale = ts.get(f"length_scale")[()]
         z_sl = ts.get(f"z_sl")[()]
         hdf.close()
-        return AmT.TestSetup(c0, rho0, p_ref, Ux, turb_intensity, length_scale, z_sl)
+        return TestSetup(c0, rho0, p_ref, Ux, turb_intensity, length_scale, z_sl)
 
     def get_run_data(self) -> Tuple[str, str, str]:
         """Extract the running data information used in the data generation.
@@ -188,7 +197,7 @@ class AmietDataReader:
             Tuple[str, str, str]: date of run, start time and end time of the
                 data generation.
         """
-        hdf = h5py.File(self.file_name, "r")
+        hdf = File(self.file_name, "r")
         rd = hdf.get("Run data")  # rd -> Run data
         date = rd.get(f"date")[()]
         start_time = rd.get(f"start_time")[()]
@@ -247,7 +256,7 @@ class AmietDataGenerator:
             None.
         """
         # Starts an empty data file
-        hdf = h5py.File(f"{self.data_name}.h5", "w")
+        hdf = File(f"{self.data_name}.h5", "w")
         hdf.close()
 
         self._init_test_setup()
@@ -280,7 +289,7 @@ class AmietDataGenerator:
             )
             self.distance = self.mic_array.mpos[2][0]
 
-        hdf = h5py.File(f"{self.data_name}.h5", "a")
+        hdf = File(f"{self.data_name}.h5", "a")
         ma = hdf.create_group("Microphone array")
         ma.create_dataset("file_name", data=self.mic_array.basename)
         ma.create_dataset("mics_number", data=self._M, dtype=int64)
@@ -313,7 +322,7 @@ class AmietDataGenerator:
             self._dipole_axis,
         ) = self.test_setup.export_values()
 
-        hdf = h5py.File(f"{self.data_name}.h5", "a")
+        hdf = File(f"{self.data_name}.h5", "a")
         ts = hdf.create_group("TestSetup")
         ts.create_dataset("c0", data=self._c0, dtype=float64)
         ts.create_dataset("rho0", data=self._rho0, dtype=float64)
@@ -344,7 +353,7 @@ class AmietDataGenerator:
             self._dy,
         ) = self.airfoil_geom.export_values()
 
-        hdf = h5py.File(f"{self.data_name}.h5", "a")
+        hdf = File(f"{self.data_name}.h5", "a")
         ag = hdf.create_group("AirfoilGeom")
         ag.create_dataset("b", data=self._b, dtype=float64)
         ag.create_dataset("d", data=self._d, dtype=float64)
@@ -362,7 +371,7 @@ class AmietDataGenerator:
             None.
         """
 
-        hdf = h5py.File(f"{self.data_name}.h5", "a")
+        hdf = File(f"{self.data_name}.h5", "a")
         gi = hdf.create_group("Grid info")
         gi.create_dataset("scan_length", data=self.scan_length, dtype=float64)
         gi.create_dataset("scan_spacing", data=self.scan_spacing, dtype=float64)
@@ -396,7 +405,7 @@ class AmietDataGenerator:
             None.
         """
         self._frequency = float(frequency)
-        self._FreqVars = AmT.FrequencyVars(self._frequency, self.test_setup)
+        self._FreqVars = FrequencyVars(self._frequency, self.test_setup)
         (self._k0, self._Kx, self._Ky_crit) = self._FreqVars.export_values()
         self.__timeit("FrequencyVars variables have been successfully initialized!")
         return None
@@ -409,7 +418,7 @@ class AmietDataGenerator:
         Returns:
             None.
         """
-        self._T_sl_fwd, self._XYZ_sl_fwd = AmT.ShearLayer_matrix(
+        self._T_sl_fwd, self._XYZ_sl_fwd = ShearLayer_matrix(
             self._XYZ_airfoil_calc, self._XYZ_array, self._z_sl, self._Ux, self._c0
         )
         self.__timeit("foward problem has been successfully calculated!")
@@ -423,9 +432,9 @@ class AmietDataGenerator:
             None.
         """
         # vector of spanwise gust wavenumbers
-        self._Ky = AmT.ky_vector(self._b, self._d, self._k0, self._Mach, self._beta)
+        self._Ky = ky_vector(self._b, self._d, self._k0, self._Mach, self._beta)
         # Turbulence spectrum (von Karman)
-        self._Phi2 = AmT.Phi_2D(
+        self._Phi2 = Phi_2D(
             self._Kx,
             self._Ky,
             self._Ux,
@@ -434,7 +443,7 @@ class AmietDataGenerator:
             model="K",
         )[0]
         # calculate source CSM
-        self._Sqq, self.Sqq_dxy = AmT.calc_airfoil_Sqq(
+        self._Sqq, self.Sqq_dxy = calc_airfoil_Sqq(
             self.test_setup, self.airfoil_geom, self._FreqVars, self._Ky, self._Phi2
         )
         self._Sqq *= self.Sqq_dxy  # apply weighting for airfoil grid areas
@@ -450,7 +459,7 @@ class AmietDataGenerator:
             None.
         """
         # create fwd transfer function
-        self._G_fwd = AmT.dipole_shear(
+        self._G_fwd = dipole_shear(
             self._XYZ_airfoil_calc,
             self._XYZ_array,
             self._XYZ_sl_fwd,
@@ -471,7 +480,7 @@ class AmietDataGenerator:
             None.
         """
 
-        scan_xy = AmT.rect_grid(self.scan_length, self.scan_spacing)
+        scan_xy = rect_grid(self.scan_length, self.scan_spacing)
         # Número de pontos do plano
         self._N = scan_xy.shape[1]
         # Create array with (x, y, z) coordinates of the scan points
@@ -487,7 +496,7 @@ class AmietDataGenerator:
         Returns:
             None.
         """
-        self._T_sl, self._XYZ_sl = AmT.ShearLayer_matrix(
+        self._T_sl, self._XYZ_sl = ShearLayer_matrix(
             self._scan_xyz, self._XYZ_array, self._z_sl, self._Ux, self._c0
         )
         self.__timeit("Shearlayer matrix has been successfully calculated!")
@@ -506,7 +515,7 @@ class AmietDataGenerator:
         # monopole grid without flow
         # G_grid = ArT.monopole3D(scan_xyz, XYZ_array, k0)
         # dipole grid with shear layer correction
-        self._G_grid = AmT.dipole_shear(
+        self._G_grid = dipole_shear(
             self._scan_xyz,
             self._XYZ_array,
             self._XYZ_sl,
@@ -530,7 +539,7 @@ class AmietDataGenerator:
         Returns:
             None.
         """
-        hdf = h5py.File(f"{self.data_name}.h5", "a")
+        hdf = File(f"{self.data_name}.h5", "a")
 
         rd = hdf.create_group("Run data")
         rd.create_dataset("date", data="{}".format(datetime.now().strftime("%d/%m/%Y")))
@@ -541,9 +550,11 @@ class AmietDataGenerator:
         fd = hdf.create_group("Frequency data")
         fd.create_dataset("frequencies", data=array(self.frequencies), dtype=float64)
 
-        self.__timeit("Starting _fwd_problem() calculation...")
+        self.__timeit("Starting the 'foward problem'...")
         self._fwd_problem()
-        self.__timeit("Entering sintezation loop...")
+        self.__timeit(
+            "The 'foward problem' is finished.\nEntering the frequency loop..."
+        )
         for i in range(len(self.frequencies)):
             self.__timeit(f"Current frequency: {self.frequencies[i]} Hz")
             self._frequency_vars(self.frequencies[i])
@@ -556,7 +567,7 @@ class AmietDataGenerator:
             freq_x.create_dataset("frequency", data=self.frequencies[i], dtype=float64)
             freq_x.create_dataset("steering_vector", data=self._W, dtype=complex64)
             freq_x.create_dataset("CSM", data=self._csm, dtype=complex64)
-            print(f"Loop: {i+1}/{len(self.frequencies)}")
+            self.__timeit(f"Finished {self.frequencies[i]} Hz")
 
         rd.create_dataset(
             "end_time", data="{}".format(datetime.now().strftime("%H:%M:%S"))
@@ -577,8 +588,8 @@ class AmietDataGenerator:
             None
         """
         if self.steps == True:
-            date_time_obj = datetime.now()
-            only_time_obj = date_time_obj.time()
-            print(f'{only_time_obj.strftime("%H:%M:%S.%f")} - {message}')
-            del date_time_obj, only_time_obj
+            dt_obj = datetime.now()
+            t_obj = str(dt_obj.time())[:-7]
+            print(f"{t_obj} - {message}")
+            del dt_obj, t_obj
         return None

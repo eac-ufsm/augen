@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MicArray name="quadrangular_array">
+   <pos Name="Point 1" x="0.25" y="0" z="0"/>
+   <pos Name="Point 2" x="-0.25" y="0" z="0"/>
+   <pos Name="Point 3" x="0" y="0.25" z="0"/>
+   <pos Name="Point 4" x="0" y="-0.25" z="0"/>
+</MicArray>

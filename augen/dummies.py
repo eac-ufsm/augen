@@ -22,26 +22,3 @@ class DummyPowerSpectra(PowerSpectra):
     ind_high = Int()
     ind_low = Int()
     calib = None
-
-
-"""
-# UNSUDED CLASS.
-# REASON: ERROR RELATED TO GETTING THE steer_vector FROM THE OBJECT!
-# BREAKS WITH bb = acoular.BeamformingBase() -> bb.synthetic(frequency)
-class DummySteeringVector(SteeringVector):
-    #Dummy for acoular.SteeringVector
-
-    def __init__(self, steer_vector, grid, mics):
-        super().__init__()
-        self._steer_vector = steer_vector
-        self.grid = grid
-        self.mics = mics
-
-    def steer_vector(self):
-        #Getter for the steering vector.
-
-        #Returns:
-        #    List[complex]: array of shape (ngridpts, nmics) containing
-        #        the steering vectors for the given frequency.
-        return self._steer_vector
-"""

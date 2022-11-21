@@ -7,7 +7,7 @@ General utilities.
 
 from typing import List
 
-import numpy as np
+from numpy import array, ndarray, pi, where
 
 
 def truncate(value: float, decimals: int = 0) -> float:
@@ -24,7 +24,7 @@ def truncate(value: float, decimals: int = 0) -> float:
     return int(value * multiplier) / multiplier
 
 
-def index_of_value(array: List[float] or np.ndarray, value: float or int) -> int:
+def index_of_value(array: List[float] or ndarray, value: float or int) -> int:
     """Get the index position of the value inside the given array.
 
     Args:
@@ -34,10 +34,10 @@ def index_of_value(array: List[float] or np.ndarray, value: float or int) -> int
     Returns:
         int: _description_
     """
-    return int(np.where(array == value)[0])
+    return int(where(array == value)[0])
 
 
-def frequency_by_kc(kc: float, b: float, c0: float = 340) -> float or np.ndarray:
+def frequency_by_kc(kc: float, b: float, c0: float = 340) -> float or ndarray:
     """Calculates the frequency using a kc, sound speed and airfoil half chord.
 
     Args:
@@ -49,10 +49,10 @@ def frequency_by_kc(kc: float, b: float, c0: float = 340) -> float or np.ndarray
         float or List[float]: Frequency (Hz).
     """
     if type(kc) == list:
-        kc = np.array(kc)
+        kc = array(kc)
 
-    f0 = kc * c0 / (2 * np.pi * (2 * b))
+    f0 = kc * c0 / (2 * pi * (2 * b))
     if len(kc) == 1:
         return round(f0, 2)
     else:
-        return np.array([round(f, 2) for f in f0])
+        return array([round(f, 2) for f in f0])

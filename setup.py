@@ -9,7 +9,7 @@ from setuptools import setup
 
 settings = {
     "name": "augen",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Amiet-Acoular Integration Module in Python",
     "url": "https://github.com/eac-ufsm/augen",
     "author": "Michael Markus Ackermann",
