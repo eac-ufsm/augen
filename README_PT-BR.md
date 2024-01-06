@@ -1,6 +1,6 @@
 <p align="left">
   <a href="https://github.com/eac-ufsm/augen/" target="_blank">
-    <img alt="Version" src="https://img.shields.io/badge/Version-0.1.0-brightgreen">
+    <img alt="Version" src="https://img.shields.io/badge/Version-0.1.1-brightgreen">
   </a>
 
   <a href="https://www.python.org/downloads/release/python-3810/" target="_blank">
@@ -35,33 +35,41 @@ O nome **Augen** é um acrônimo para "**A**miet-Aco**u**lar Inte**g**ration Mod
 
 ### Procedimento
 
-1. Instale o Python 3.8.10 e o [git](https://git-scm.com/) para proceder com o procedimento de instalação do pacote.
+1.0 Existem dois métodos para usar a caixa de ferramentas: **1.1**, que usa diretamente a instalação do Python, ou **1.2**, com um ambiente Anaconda.
 
-2. Após instalar-se todas a dependências listadas na seção seguinte, pode-se realizar a instalação do Augen. A instalação pode ser feita ao rodar o seguinte comando utilizando o PIP:
-```pip install git+https://github.com/eac-ufsm/augen```
+1.1 Instale o Python 3.8.10 e o [git](https://git-scm.com/) para proceder com o procedimento de instalação do pacote.
 
-**Aviso**: Como o **Amiet Tools** ainda não está disponível no [PyPI](https://pypi.org/), tenha a certeza de executar o seguinte comando antes de instalar o **Augen**:
+1.2 Crie um ambiente Anaconda para o Python 3.8.10 com ```conda create -n nome_ambiente python=3.8.10```.
 
-```pip install git+https://github.com/fchirono/amiet_tools```
-
-## Lista de dependências
-
-Todas as dependências listadas abaixo são necessárias para o funcionamento correto da ferramenta:
+2.0 Instale todas as dependências da lista abaixo (leia [[A]](#A)):
 
 - **[Python](https://www.python.org/downloads/release/python-3810/) == 3.8.10**
 - [SciPy](https://scipy.org/) == 1.7.1
 - [NumPy](https://numpy.org/) == 1.20.3
 - [Amiet Tools](https://github.com/fchirono/amiet_tools) == 0.0.2
 - [Acoular](https://github.com/acoular/acoular) == 21.5
-  - [scikit-learn](https://scikit-learn.org/stable/) (a.k.a. sklearn) == 0.24.2
+  - [scikit-learn](https://scikit-learn.org/stable/) (a.k.a. sklearn)== 0.24.2
   - [Numba](https://numba.pydata.org/) == 0.54.0
-  - [six](https://github.com/benjaminp/six) == 1.0.4
+  - [six](https://github.com/benjaminp/six) >= 1.1.0
   - [pytables](https://github.com/PyTables/PyTables) (a.k.a. tables) == 3.6.1
   - [Traits](https://docs.enthought.com/traits/index.html) == 6.2.0
   - [TraitsUI](https://docs.enthought.com/traitsui/) == 7.2.1
   - libpython
+- Matplotlib == 3.7.4
+- PyQt5 == 5.15.10
+- h5py == 3.10.0
 
-### Como instalar um versão antiga de uma depedência
+**Aviso**: Como o **Amiet Tools** ainda não está disponível no [PyPI](https://pypi.org/), tenha a certeza de executar o seguinte comando antes de instalar o **Augen**:
+
+```pip install git+https://github.com/fchirono/amiet_tools```
+
+2.1 Verifique com o comando ```pip list``` se todos os dependecides estão instalados com a versão correta. Não se esqueça de ler [[A]](#A).
+
+3.0. Após instalar-se todas a dependências, pode-se realizar a instalação do Augen. A instalação pode ser feita ao rodar o seguinte comando utilizando o PIP:
+```pip install git+https://github.com/eac-ufsm/fia2022-augen```
+
+
+### <a id="A">[A]</a> Como instalar um versão antiga de uma depedência
 
 Para realizar a instalação de um pacote/módulo em Python utilizando o PIP basta utilizar o seguinte comando:
 
